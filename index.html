@@ -111,23 +111,20 @@
   <div id="b1" class="butterfly pixelated"></div>
   <div id="b2" class="butterfly pixelated"></div>
 
-  <script>
+<script>
     var overlay = document.getElementById('start-overlay');
     var music = document.getElementById('bg-music');
 
-    // 监听触摸或点击事件，启动音乐并隐藏提示
     function startExperience() {
+      // 针对老版 iOS 必须先 load 再 play 才能解锁音频通道
+      music.load();
       music.play();
       overlay.style.display = 'none';
     }
 
-    overlay.addEventListener('touchend', function(e) {
-      e.preventDefault(); // 阻止默认行为，防止穿透
-      startExperience();
-    });
-    
-    // 兼容电脑端测试
-    overlay.addEventListener('click', startExperience);
+    // 同时绑定 touchstart 和 click，确保 100% 触发
+    overlay.addEventListener('touchstart', startExperience, false);
+    overlay.addEventListener('click', startExperience, false);
   </script>
 </body>
 </html>
