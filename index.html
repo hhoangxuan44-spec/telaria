@@ -98,11 +98,12 @@
   </style>
 </head>
 <body>
-  <!-- 音乐播放器 -->
-<audio id="bg-music" src="https://www.w3schools.com/html/horse.mp3" loop controls style="position:absolute; z-index:999; top:10px; left:10px;"></audio>
+  <audio id="bg-music" loop></audio>
 
-  <!-- 提示层 -->
-  <div id="start-overlay">TAP TO START</div>
+  <!-- 遮罩层：增加加载状态提示 -->
+  <div id="start-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 100; display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; color: white; font-family: monospace; font-size: 4vw; letter-spacing: 2px;">
+    LOADING AUDIO...
+  </div>
 
   <div id="c1" class="cloud pixelated"></div>
   <div id="c2" class="cloud pixelated"></div>
@@ -111,18 +112,36 @@
   <div id="b1" class="butterfly pixelated"></div>
   <div id="b2" class="butterfly pixelated"></div>
 
-<script>
+  <script>
     var overlay = document.getElementById('start-overlay');
     var music = document.getElementById('bg-music');
+    var isLoaded = false;
 
-    function startExperience() {
-      // 针对老版 iOS 必须先 load 再 play 才能解锁音频通道
-      music.load();
+    // 核心突破：利用 XMLHttpRequest 把音频强制下载到 iPad 内存 (Blob)
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'Music-Overworld_Day.m4a', true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      if (this.status === 200) {
+        // 将内存中的数据转换为本地直读链接
+        var objectUrl = URL.createObjectURL(this.response);
+        music.src = objectUrl;
+        isLoaded = true;
+        overlay.innerText = "TAP TO START"; // 下载完成后允许点击
+      } else {
+        overlay.innerText = "ERROR: " + this.status;
+      }
+    };
+    xhr.send();
+
+    function startExperience(e) {
+      if (!isLoaded) return; // 音频没进入内存前禁止操作
+      e.preventDefault();
       music.play();
       overlay.style.display = 'none';
     }
 
-    // 同时绑定 touchstart 和 click，确保 100% 触发
+    // 兼容老旧 iOS 的触摸事件
     overlay.addEventListener('touchstart', startExperience, false);
     overlay.addEventListener('click', startExperience, false);
   </script>
