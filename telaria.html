@@ -5,50 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>考研专注终端</title>
+  <title>Terraria Day</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; background-color: #080808; overflow: hidden; }
     
-    body {
-      color: #00ff00;
-      font-family: "Courier New", Courier, monospace;
-      -webkit-user-select: none; user-select: none;
+    /* 1. 替换纯黑背景，改为泰拉瑞亚白天天穹渐变色 */
+    html, body { 
+      width: 100%; height: 100%; 
+      background: -webkit-linear-gradient(top, #5c94fc 0%, #a8d8fc 100%);
+      overflow: hidden; 
     }
-
-    /* 强制像素锐化，保持原汁原味的泰拉瑞亚像素感 */
+    
     .pixelated {
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
       image-rendering: pixelated;
     }
 
-    /* === 云层系统 (远景) === */
+    /* === 云层系统 === */
     .cloud {
       position: absolute;
       background-repeat: no-repeat;
       background-size: contain;
       -webkit-transform: translate3d(120vw, 0, 0); 
-      z-index: 1; /* 垫在最底层 */
+      z-index: 1; 
     }
+    /* 调高了云朵的透明度，让它们在蓝天下更清晰 */
     #c1 {
       top: 10%; height: 10vh; width: 25vw;
-      background-image: url('Cummulus_cloud_1.png'); /* 文件名严格对应 */
-      opacity: 0.5;
+      background-image: url('Cummulus_cloud_1.png'); 
+      opacity: 0.9;
       -webkit-animation: floatCloud 70s linear infinite;
       -webkit-animation-delay: -10s;
     }
     #c2 {
       top: 25%; height: 12vh; width: 30vw;
       background-image: url('Cummulus_cloud_2.png');
-      opacity: 0.3;
+      opacity: 0.85;
       -webkit-animation: floatCloud 90s linear infinite;
       -webkit-animation-delay: -45s;
     }
     #c3 {
       top: 40%; height: 8vh; width: 20vw;
       background-image: url('Cummulus_cloud_3.png');
-      opacity: 0.4;
+      opacity: 0.95;
       -webkit-animation: floatCloud 110s linear infinite;
       -webkit-animation-delay: -80s;
     }
@@ -57,28 +57,25 @@
       to   { -webkit-transform: translate3d(-40vw, 0, 0); }
     }
 
-    /* === 蝴蝶群系统 (近景) === */
+    /* === 蝴蝶群系统 === */
     .butterfly {
       position: absolute;
       background-repeat: no-repeat;
       background-size: contain;
-      z-index: 5; /* 浮在云层上方，文字下方 */
+      z-index: 5; 
     }
     #b1 {
       bottom: 20%; left: 10%;
       height: 6vh; width: 15vw;
       background-image: url('Ambience_ButterflySwarm1.gif');
-      opacity: 0.8;
       -webkit-animation: roamLeftRight 40s ease-in-out infinite alternate;
     }
     #b2 {
       bottom: 30%; right: 15%;
       height: 5vh; width: 12vw;
       background-image: url('Ambience_ButterflySwarm2.gif');
-      opacity: 0.6;
       -webkit-animation: roamRightLeft 35s ease-in-out infinite alternate;
     }
-    /* 让蝴蝶群不仅有 GIF 扇动，还会缓慢在屏幕左右游荡 */
     @-webkit-keyframes roamLeftRight {
       from { -webkit-transform: translate3d(0, 0, 0); }
       to   { -webkit-transform: translate3d(30vw, -2vh, 0); }
@@ -88,68 +85,49 @@
       to   { -webkit-transform: translate3d(-30vw, 3vh, 0); }
     }
 
-    /* === CRT 监视器滤镜 === */
-    #crt-filter {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 50; pointer-events: none;
-      background: 
-        -webkit-linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%),
-        -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
-      background-size: 100% 4px, 100% 100%;
-    }
-
-    /* === UI 界面 === */
-    #ui-layer {
-      position: relative; z-index: 10;
-      width: 100%; height: 100%;
-      display: -webkit-box; display: flex;
-      -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;
-      -webkit-box-pack: center; justify-content: center;
+    /* === 启动交互层 === */
+    #start-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4); z-index: 100;
+      display: -webkit-box; display: flex; 
+      -webkit-box-pack: center; justify-content: center; 
       -webkit-box-align: center; align-items: center;
-    }
-    #time-display {
-      font-size: 26vw; font-weight: bold; letter-spacing: -2px; line-height: 1;
-      text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-    }
-    #target-display {
-      position: absolute; bottom: 12%; font-size: 3.5vw; color: #555; letter-spacing: 2px;
-      text-shadow: 0 0 5px rgba(0,0,0,0.8); /* 加深阴影防止被蝴蝶挡住 */
+      color: white; font-family: "Courier New", Courier, monospace; font-size: 4vw;
+      letter-spacing: 2px;
     }
   </style>
 </head>
 <body>
+  <!-- 音乐播放器 -->
+  <audio id="bg-music" src="Music-Overworld_Day" loop></audio>
 
-  <!-- 远景：云层 -->
+  <!-- 提示层 -->
+  <div id="start-overlay">TAP TO START</div>
+
   <div id="c1" class="cloud pixelated"></div>
   <div id="c2" class="cloud pixelated"></div>
   <div id="c3" class="cloud pixelated"></div>
 
-  <!-- 近景：蝴蝶群 -->
   <div id="b1" class="butterfly pixelated"></div>
   <div id="b2" class="butterfly pixelated"></div>
 
-  <!-- CRT 滤镜层 -->
-  <div id="crt-filter"></div>
-
-  <!-- 核心数据层 -->
-  <div id="ui-layer">
-    <div id="time-display">00:00</div>
-    <div id="target-display">TARGET: 350+ | 专业课: 100+</div>
-  </div>
-
   <script>
-    // 纯 ES5 极简时钟脚本
-    var displayEl = document.getElementById('time-display');
-    function pad(num) { return ('0' + num).slice(-2); }
-    
-    function tick() {
-      var now = new Date();
-      displayEl.innerText = pad(now.getHours()) + ':' + pad(now.getMinutes());
+    var overlay = document.getElementById('start-overlay');
+    var music = document.getElementById('bg-music');
+
+    // 监听触摸或点击事件，启动音乐并隐藏提示
+    function startExperience() {
+      music.play();
+      overlay.style.display = 'none';
     }
+
+    overlay.addEventListener('touchend', function(e) {
+      e.preventDefault(); // 阻止默认行为，防止穿透
+      startExperience();
+    });
     
-    tick();
-    setInterval(tick, 1000);
+    // 兼容电脑端测试
+    overlay.addEventListener('click', startExperience);
   </script>
 </body>
 </html>
