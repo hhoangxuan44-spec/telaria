@@ -9,7 +9,6 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* === 极简纯粹的天空渐变 === */
     html, body { 
       width: 100%; height: 100%; 
       background: -webkit-linear-gradient(top, #5c94fc 0%, #a8d8fc 100%);
@@ -22,75 +21,120 @@
       image-rendering: pixelated;
     }
 
-    /* === 自然云层系统 (直接调用文件夹里的普通云) === */
+    /* === 全新分层云系统 === */
     .cloud {
       position: absolute;
       background-repeat: no-repeat;
       background-size: contain;
-      -webkit-transform: translate3d(120vw, 0, 0); 
       z-index: 1; 
     }
-    #c1 {
-      top: 10%; height: 10vh; width: 20vw;
+    /* 高空卷云：极快、半透明 */
+    #c-high-1 {
+      top: 5%; height: 8vh; width: 18vw;
+      background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png');
+      opacity: 0.6;
+      -webkit-animation: floatCloud 30s linear infinite;
+    }
+    #c-high-2 {
+      top: 12%; height: 6vh; width: 15vw;
+      background-image: url('Category_Cloud_images/Cirrus_cloud_4.png');
+      opacity: 0.7;
+      -webkit-animation: floatCloud 45s linear infinite;
+      -webkit-animation-delay: -20s;
+    }
+    /* 中空普通云：中速、较清晰 */
+    #c-mid-1 {
+      top: 25%; height: 10vh; width: 22vw;
       background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); 
       opacity: 0.9;
-      -webkit-animation: floatCloud 70s linear infinite;
+      -webkit-animation: floatCloud 75s linear infinite;
       -webkit-animation-delay: -10s;
     }
-    #c2 {
-      top: 25%; height: 8vh; width: 25vw;
-      background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png');
+    #c-mid-2 {
+      top: 35%; height: 9vh; width: 20vw;
+      background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); 
       opacity: 0.85;
-      -webkit-animation: floatCloud 90s linear infinite;
-      -webkit-animation-delay: -45s;
+      -webkit-animation: floatCloud 85s linear infinite;
+      -webkit-animation-delay: -50s;
     }
-    #c3 {
-      top: 40%; height: 12vh; width: 22vw;
+    /* 低空积雨云：巨大、极慢、不透明 */
+    #c-low-1 {
+      top: 45%; height: 14vh; width: 28vw;
       background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png');
-      opacity: 0.95;
-      -webkit-animation: floatCloud 110s linear infinite;
+      opacity: 1;
+      -webkit-animation: floatCloud 140s linear infinite;
       -webkit-animation-delay: -80s;
     }
+
     @-webkit-keyframes floatCloud {
-      from { -webkit-transform: translate3d(120vw, 0, 0); }
+      from { -webkit-transform: translate3d(110vw, 0, 0); }
       to   { -webkit-transform: translate3d(-40vw, 0, 0); }
     }
 
-    /* === Base64 无缝像素草地 (完美平铺不失真) === */
-    #ground {
+    /* === 加厚版厚实地基 === */
+    #ground-container {
       position: absolute;
       bottom: 0; left: 0;
       width: 100%; 
-      height: 64px; 
+      height: 18vh; /* 抬高地基高度（约三个手指） */
+      background-color: #5D4037; /* 底部纯实心泥土色 */
+      z-index: 3;
+    }
+    /* 草皮层：只在地基最顶端铺一层 */
+    #grass-top {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 32px;
       background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjNUQ0MDM3Ii8+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjQiIGZpbGw9IiM0Q0FGNTAiLz48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjNENBRjUwIi8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiM0Q0FGNTAiLz48L3N2Zz4=');
       background-repeat: repeat-x; 
       background-size: 32px 32px; 
-      z-index: 3;
     }
 
-    /* === 实体层：玩家与动物 === */
+    /* === 实体层 === */
     .entity {
       position: absolute;
-      bottom: 64px; /* 刚好坐在 64px 高的草地上 */
+      /* 基础高度：贴着抬高后的地基顶部 */
+      bottom: 18vh; 
       background-repeat: no-repeat;
       background-size: contain;
       z-index: 10;
     }
     
-    /* 弹吉他的玩家 */
+    /* 弹吉他的玩家：修复浮空 */
     #player {
       left: 45%; 
-      width: 48px; height: 64px; /* 调整高度比例匹配玩家模型 */
+      width: 48px; height: 64px; 
+      /* 使用负边距将人物“向下压”，抵消 GIF 的透明底部，你可以微调这个数值 */
+      margin-bottom: -10px; 
       background-image: url('Category_Player_animations/Guitar_example.gif'); 
     }
 
-    /* 旁边陪伴的兔子 */
+    /* 陪伴的兔子 */
     #bunny {
-      left: 35%;
+      left: 38%;
       width: 50px; height: 35px;
+      margin-bottom: -6px; /* 兔子也微调一下接地 */
       background-image: url('Category_Mount_animations/Bunny_Mount.gif'); 
-      -webkit-transform: scaleX(-1); /* 让兔子翻转朝向右边的玩家 */
+      -webkit-transform: scaleX(-1); 
       transform: scaleX(-1);
+    }
+
+    /* 来回巡逻的猪龙坐骑（利用你抓取的 walking 动图） */
+    #pigron {
+      width: 80px; height: 60px;
+      margin-bottom: -15px; 
+      background-image: url('Category_Mount_animations/Pigron_Mount_(walking).gif');
+      /* 执行 24 秒一圈的来回走动动画 */
+      -webkit-animation: patrolWalk 24s linear infinite;
+    }
+
+    /* 巡逻 AI：走到右边 -> 瞬间翻转身体 -> 走回左边 -> 瞬间翻转 */
+    @-webkit-keyframes patrolWalk {
+      0%   { left: -10%; -webkit-transform: scaleX(1); }
+      48%  { left: 110%; -webkit-transform: scaleX(1); } /* 走到屏幕右外侧 */
+      50%  { left: 110%; -webkit-transform: scaleX(-1); } /* 瞬间掉头 */
+      98%  { left: -10%; -webkit-transform: scaleX(-1); } /* 走回屏幕左外侧 */
+      100% { left: -10%; -webkit-transform: scaleX(1); } /* 瞬间掉头完成循环 */
     }
 
     /* === 启动交互层 === */
@@ -112,17 +156,22 @@
     LOADING AUDIO...
   </div>
 
-  <!-- 天空云朵 -->
-  <div id="c1" class="cloud pixelated"></div>
-  <div id="c2" class="cloud pixelated"></div>
-  <div id="c3" class="cloud pixelated"></div>
+  <!-- 分层云朵组合 -->
+  <div id="c-high-1" class="cloud pixelated"></div>
+  <div id="c-high-2" class="cloud pixelated"></div>
+  <div id="c-mid-1" class="cloud pixelated"></div>
+  <div id="c-mid-2" class="cloud pixelated"></div>
+  <div id="c-low-1" class="cloud pixelated"></div>
 
-  <!-- 地基 -->
-  <div id="ground" class="pixelated"></div>
+  <!-- 加厚地基 -->
+  <div id="ground-container" class="pixelated">
+    <div id="grass-top"></div>
+  </div>
 
   <!-- 实体组合 -->
   <div id="player" class="entity pixelated"></div>
   <div id="bunny" class="entity pixelated"></div>
+  <div id="pigron" class="entity pixelated"></div>
 
   <script>
     var overlay = document.getElementById('start-overlay');
@@ -130,7 +179,6 @@
     var isLoaded = false;
 
     var xhr = new XMLHttpRequest();
-    // 依然读取根目录下的背景音乐
     xhr.open('GET', 'Music-Overworld_Day.m4a', true);
     xhr.responseType = 'blob';
     xhr.onload = function() {
