@@ -9,7 +9,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* 1. 替换纯黑背景，改为泰拉瑞亚白天天穹渐变色 */
+    /* 0层：泰拉瑞亚白天天穹渐变色 */
     html, body { 
       width: 100%; height: 100%; 
       background: -webkit-linear-gradient(top, #5c94fc 0%, #a8d8fc 100%);
@@ -22,7 +22,7 @@
       image-rendering: pixelated;
     }
 
-    /* === 云层系统 === */
+    /* === 1层：云层系统 === */
     .cloud {
       position: absolute;
       background-repeat: no-repeat;
@@ -30,7 +30,6 @@
       -webkit-transform: translate3d(120vw, 0, 0); 
       z-index: 1; 
     }
-    /* 调高了云朵的透明度，让它们在蓝天下更清晰 */
     #c1 {
       top: 10%; height: 10vh; width: 25vw;
       background-image: url('Cummulus_cloud_1.png'); 
@@ -57,12 +56,45 @@
       to   { -webkit-transform: translate3d(-40vw, 0, 0); }
     }
 
-    /* === 蝴蝶群系统 === */
+    /* === 2层：流动远景山脉 === */
+    #parallax-bg {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 200%; height: 65%; /* 高度占屏幕中下部 */
+      background-image: url('Map_Background_Forest.png'); /* 注意替换你实际抓到的背景图名字 */
+      background-repeat: repeat-x; 
+      background-size: auto 100%; 
+      background-position: bottom left;
+      z-index: 2; /* 盖在云朵上，但在蝴蝶和地面之下 */
+      -webkit-animation: scrollBg 60s linear infinite;
+      animation: scrollBg 60s linear infinite;
+    }
+    @-webkit-keyframes scrollBg {
+      0% { -webkit-transform: translate3d(0, 0, 0); }
+      100% { -webkit-transform: translate3d(-50%, 0, 0); }
+    }
+    @keyframes scrollBg {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* === 3层：实体地面层 === */
+    #ground {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 64px; 
+      background-image: url('Sand_Block.png'); /* 记得替换为你实际抓到的沙块或草地名字 */
+      background-repeat: repeat-x; 
+      background-size: 32px auto; 
+      z-index: 3; /* 盖住背景图的底边缝隙 */
+    }
+
+    /* === 4层：蝴蝶群系统 === */
     .butterfly {
       position: absolute;
       background-repeat: no-repeat;
       background-size: contain;
-      z-index: 5; 
+      z-index: 4; /* 在所有背景之上 */
     }
     #b1 {
       bottom: 20%; left: 10%;
@@ -85,7 +117,7 @@
       to   { -webkit-transform: translate3d(-30vw, 3vh, 0); }
     }
 
-    /* === 启动交互层 === */
+    /* === 100层：启动交互层 === */
     #start-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.4); z-index: 100;
@@ -100,14 +132,16 @@
 <body>
   <audio id="bg-music" loop></audio>
 
-  <!-- 遮罩层：增加加载状态提示 -->
-  <div id="start-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 100; display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; color: white; font-family: monospace; font-size: 4vw; letter-spacing: 2px;">
+  <div id="start-overlay">
     LOADING AUDIO...
   </div>
 
   <div id="c1" class="cloud pixelated"></div>
   <div id="c2" class="cloud pixelated"></div>
   <div id="c3" class="cloud pixelated"></div>
+
+  <div id="parallax-bg" class="pixelated"></div>
+  <div id="ground" class="pixelated"></div>
 
   <div id="b1" class="butterfly pixelated"></div>
   <div id="b2" class="butterfly pixelated"></div>
@@ -123,11 +157,10 @@
     xhr.responseType = 'blob';
     xhr.onload = function() {
       if (this.status === 200) {
-        // 将内存中的数据转换为本地直读链接
         var objectUrl = URL.createObjectURL(this.response);
         music.src = objectUrl;
         isLoaded = true;
-        overlay.innerText = "TAP TO START"; // 下载完成后允许点击
+        overlay.innerText = "TAP TO START"; 
       } else {
         overlay.innerText = "ERROR: " + this.status;
       }
@@ -135,13 +168,12 @@
     xhr.send();
 
     function startExperience(e) {
-      if (!isLoaded) return; // 音频没进入内存前禁止操作
+      if (!isLoaded) return; 
       e.preventDefault();
       music.play();
       overlay.style.display = 'none';
     }
 
-    // 兼容老旧 iOS 的触摸事件
     overlay.addEventListener('touchstart', startExperience, false);
     overlay.addEventListener('click', startExperience, false);
   </script>
