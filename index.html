@@ -9,7 +9,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* 0层：泰拉瑞亚白天天穹渐变色 */
+    /* === 极简纯粹的天空渐变 === */
     html, body { 
       width: 100%; height: 100%; 
       background: -webkit-linear-gradient(top, #5c94fc 0%, #a8d8fc 100%);
@@ -22,7 +22,7 @@
       image-rendering: pixelated;
     }
 
-    /* === 1层：云层系统 === */
+    /* === 自然云层系统 (直接调用文件夹里的普通云) === */
     .cloud {
       position: absolute;
       background-repeat: no-repeat;
@@ -31,22 +31,22 @@
       z-index: 1; 
     }
     #c1 {
-      top: 10%; height: 10vh; width: 25vw;
-      background-image: url('Cummulus_cloud_1.png'); 
+      top: 10%; height: 10vh; width: 20vw;
+      background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); 
       opacity: 0.9;
       -webkit-animation: floatCloud 70s linear infinite;
       -webkit-animation-delay: -10s;
     }
     #c2 {
-      top: 25%; height: 12vh; width: 30vw;
-      background-image: url('Cummulus_cloud_2.png');
+      top: 25%; height: 8vh; width: 25vw;
+      background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png');
       opacity: 0.85;
       -webkit-animation: floatCloud 90s linear infinite;
       -webkit-animation-delay: -45s;
     }
     #c3 {
-      top: 40%; height: 8vh; width: 20vw;
-      background-image: url('Cummulus_cloud_3.png');
+      top: 40%; height: 12vh; width: 22vw;
+      background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png');
       opacity: 0.95;
       -webkit-animation: floatCloud 110s linear infinite;
       -webkit-animation-delay: -80s;
@@ -56,68 +56,44 @@
       to   { -webkit-transform: translate3d(-40vw, 0, 0); }
     }
 
-    /* === 2层：流动远景山脉 === */
-    #parallax-bg {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 200%; height: 65%; /* 高度占屏幕中下部 */
-      background-image: url('Map_Background_Forest.png'); /* 注意替换你实际抓到的背景图名字 */
-      background-repeat: repeat-x; 
-      background-size: auto 100%; 
-      background-position: bottom left;
-      z-index: 2; /* 盖在云朵上，但在蝴蝶和地面之下 */
-      -webkit-animation: scrollBg 60s linear infinite;
-      animation: scrollBg 60s linear infinite;
-    }
-    @-webkit-keyframes scrollBg {
-      0% { -webkit-transform: translate3d(0, 0, 0); }
-      100% { -webkit-transform: translate3d(-50%, 0, 0); }
-    }
-    @keyframes scrollBg {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
-    }
-
-    /* === 3层：实体地面层 === */
+    /* === Base64 无缝像素草地 (完美平铺不失真) === */
     #ground {
       position: absolute;
       bottom: 0; left: 0;
-      width: 100%; height: 64px; 
-      background-image: url('Sand_Block.png'); /* 记得替换为你实际抓到的沙块或草地名字 */
+      width: 100%; 
+      height: 64px; 
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjNUQ0MDM3Ii8+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjQiIGZpbGw9IiM0Q0FGNTAiLz48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjNENBRjUwIi8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiM0Q0FGNTAiLz48L3N2Zz4=');
       background-repeat: repeat-x; 
-      background-size: 32px auto; 
-      z-index: 3; /* 盖住背景图的底边缝隙 */
+      background-size: 32px 32px; 
+      z-index: 3;
     }
 
-    /* === 4层：蝴蝶群系统 === */
-    .butterfly {
+    /* === 实体层：玩家与动物 === */
+    .entity {
       position: absolute;
+      bottom: 64px; /* 刚好坐在 64px 高的草地上 */
       background-repeat: no-repeat;
       background-size: contain;
-      z-index: 4; /* 在所有背景之上 */
+      z-index: 10;
     }
-    #b1 {
-      bottom: 20%; left: 10%;
-      height: 6vh; width: 15vw;
-      background-image: url('Ambience_ButterflySwarm1.gif');
-      -webkit-animation: roamLeftRight 40s ease-in-out infinite alternate;
-    }
-    #b2 {
-      bottom: 30%; right: 15%;
-      height: 5vh; width: 12vw;
-      background-image: url('Ambience_ButterflySwarm2.gif');
-      -webkit-animation: roamRightLeft 35s ease-in-out infinite alternate;
-    }
-    @-webkit-keyframes roamLeftRight {
-      from { -webkit-transform: translate3d(0, 0, 0); }
-      to   { -webkit-transform: translate3d(30vw, -2vh, 0); }
-    }
-    @-webkit-keyframes roamRightLeft {
-      from { -webkit-transform: translate3d(0, 0, 0); }
-      to   { -webkit-transform: translate3d(-30vw, 3vh, 0); }
+    
+    /* 弹吉他的玩家 */
+    #player {
+      left: 45%; 
+      width: 48px; height: 64px; /* 调整高度比例匹配玩家模型 */
+      background-image: url('Category_Player_animations/Guitar_example.gif'); 
     }
 
-    /* === 100层：启动交互层 === */
+    /* 旁边陪伴的兔子 */
+    #bunny {
+      left: 35%;
+      width: 50px; height: 35px;
+      background-image: url('Category_Mount_animations/Bunny_Mount.gif'); 
+      -webkit-transform: scaleX(-1); /* 让兔子翻转朝向右边的玩家 */
+      transform: scaleX(-1);
+    }
+
+    /* === 启动交互层 === */
     #start-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.4); z-index: 100;
@@ -136,23 +112,25 @@
     LOADING AUDIO...
   </div>
 
+  <!-- 天空云朵 -->
   <div id="c1" class="cloud pixelated"></div>
   <div id="c2" class="cloud pixelated"></div>
   <div id="c3" class="cloud pixelated"></div>
 
-  <div id="parallax-bg" class="pixelated"></div>
+  <!-- 地基 -->
   <div id="ground" class="pixelated"></div>
 
-  <div id="b1" class="butterfly pixelated"></div>
-  <div id="b2" class="butterfly pixelated"></div>
+  <!-- 实体组合 -->
+  <div id="player" class="entity pixelated"></div>
+  <div id="bunny" class="entity pixelated"></div>
 
   <script>
     var overlay = document.getElementById('start-overlay');
     var music = document.getElementById('bg-music');
     var isLoaded = false;
 
-    // 核心突破：利用 XMLHttpRequest 把音频强制下载到 iPad 内存 (Blob)
     var xhr = new XMLHttpRequest();
+    // 依然读取根目录下的背景音乐
     xhr.open('GET', 'Music-Overworld_Day.m4a', true);
     xhr.responseType = 'blob';
     xhr.onload = function() {
