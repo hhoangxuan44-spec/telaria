@@ -21,32 +21,35 @@
       image-rendering: pixelated;
     }
 
-    /* === 重构层叠云海 (密集叠加设计) === */
+    /* === 终极连绵云海 (15朵高密度云层交错) === */
     .cloud {
-      position: absolute;
-      background-repeat: no-repeat;
-      background-size: contain;
-      z-index: 1; 
+      position: absolute; background-repeat: no-repeat; background-size: contain; z-index: 1; 
     }
     
-    /* 1. 后层云 (慢速、透明度低、最高) */
-    #c-bg-1 { top: 8%; height: 12vh; width: 25vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.5; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -10s; }
-    #c-bg-2 { top: 10%; height: 10vh; width: 22vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.6; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -50s; }
-    #c-bg-3 { top: 15%; height: 14vh; width: 28vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.55; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -90s; }
+    /* 远景云海 (极其缓慢，填补空隙) */
+    #c1 { top: -2%; height: 25vh; width: 45vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.6; -webkit-animation: floatBg 180s linear infinite; -webkit-animation-delay: 0s; }
+    #c2 { top: 5%; height: 20vh; width: 35vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.5; -webkit-animation: floatBg 180s linear infinite; -webkit-animation-delay: -30s; }
+    #c3 { top: 0%; height: 22vh; width: 40vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.65; -webkit-animation: floatBg 180s linear infinite; -webkit-animation-delay: -65s; }
+    #c4 { top: 8%; height: 24vh; width: 50vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.55; -webkit-animation: floatBg 180s linear infinite; -webkit-animation-delay: -100s; }
+    #c5 { top: 2%; height: 18vh; width: 30vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.5; -webkit-animation: floatBg 180s linear infinite; -webkit-animation-delay: -140s; }
 
-    /* 2. 中层云团 (中速、密集交叉、遮挡) */
-    #c-mid-1 { top: 22%; height: 15vh; width: 30vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.85; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -5s; }
-    #c-mid-2 { top: 28%; height: 11vh; width: 24vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.9; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -18s; } /* 紧跟上一朵，形成连云 */
-    #c-mid-3 { top: 35%; height: 9vh; width: 20vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 0.8; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -45s; }
-    #c-mid-4 { top: 32%; height: 13vh; width: 26vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.88; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -65s; }
+    /* 中景云海 (交错遮挡，营造厚重感) */
+    #c6 { top: 12%; height: 18vh; width: 35vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.85; -webkit-animation: floatMid 110s linear infinite; -webkit-animation-delay: -10s; }
+    #c7 { top: 18%; height: 20vh; width: 40vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.9; -webkit-animation: floatMid 110s linear infinite; -webkit-animation-delay: -25s; }
+    #c8 { top: 10%; height: 15vh; width: 28vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 0.8; -webkit-animation: floatMid 110s linear infinite; -webkit-animation-delay: -45s; }
+    #c9 { top: 22%; height: 16vh; width: 32vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.95; -webkit-animation: floatMid 110s linear infinite; -webkit-animation-delay: -70s; }
+    #c10{ top: 15%; height: 22vh; width: 42vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.88; -webkit-animation: floatMid 110s linear infinite; -webkit-animation-delay: -95s; }
 
-    /* 3. 前层飞云 (快速、实心、低空) */
-    #c-fg-1 { top: 40%; height: 8vh; width: 18vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 1; -webkit-animation: floatFg 45s linear infinite; -webkit-animation-delay: -15s; }
-    #c-fg-2 { top: 45%; height: 10vh; width: 22vw; background-image: url('Category_Cloud_images/Cirrus_cloud_4.png'); opacity: 0.95; -webkit-animation: floatFg 45s linear infinite; -webkit-animation-delay: -35s; }
+    /* 近景飞云 (最快，最清晰，点缀最前方) */
+    #c11{ top: 28%; height: 12vh; width: 25vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 1; -webkit-animation: floatFg 60s linear infinite; -webkit-animation-delay: -5s; }
+    #c12{ top: 32%; height: 10vh; width: 20vw; background-image: url('Category_Cloud_images/Cirrus_cloud_4.png'); opacity: 0.95; -webkit-animation: floatFg 60s linear infinite; -webkit-animation-delay: -18s; }
+    #c13{ top: 25%; height: 14vh; width: 28vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 1; -webkit-animation: floatFg 60s linear infinite; -webkit-animation-delay: -35s; }
+    #c14{ top: 30%; height: 11vh; width: 22vw; background-image: url('Category_Cloud_images/Cirrus_cloud_4.png'); opacity: 0.9; -webkit-animation: floatFg 60s linear infinite; -webkit-animation-delay: -48s; }
+    #c15{ top: 26%; height: 15vh; width: 30vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 1; -webkit-animation: floatFg 60s linear infinite; -webkit-animation-delay: -55s; }
 
-    @-webkit-keyframes floatBg  { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
-    @-webkit-keyframes floatMid { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
-    @-webkit-keyframes floatFg  { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
+    @-webkit-keyframes floatBg  { from { -webkit-transform: translate3d(120vw, 0, 0); } to { -webkit-transform: translate3d(-60vw, 0, 0); } }
+    @-webkit-keyframes floatMid { from { -webkit-transform: translate3d(120vw, 0, 0); } to { -webkit-transform: translate3d(-60vw, 0, 0); } }
+    @-webkit-keyframes floatFg  { from { -webkit-transform: translate3d(120vw, 0, 0); } to { -webkit-transform: translate3d(-60vw, 0, 0); } }
 
     /* === 加厚地基 === */
     #ground-container {
@@ -63,48 +66,50 @@
       position: absolute; bottom: 18vh; background-repeat: no-repeat; background-size: contain; z-index: 10;
     }
     
-    /* 玩家：保持原样 */
+    /* 玩家：唯一保留负边距陷地的人物 */
     #player {
       left: 55%; width: 48px; height: 64px; margin-bottom: -10px; 
       background-image: url('Category_Player_animations/Guitar_example.gif'); 
     }
 
-    /* 兔子：修复陷地并加入蹦跶 AI */
+    /* 兔子：去除 margin-bottom，完美接地 */
     #bunny {
-      width: 50px; height: 35px;
-      margin-bottom: 2px; /* 向上微调，离开泥土 */
+      width: 50px; height: 35px; margin-bottom: 0; 
       background-image: url('Category_Mount_animations/Bunny_Mount.gif'); 
-      -webkit-animation: bunnyHop 14s ease-in-out infinite; /* 绑定水平移动轨迹 */
+      -webkit-animation: bunnyHop 14s linear infinite; 
     }
 
-    /* 猪龙：修复陷地 */
+    /* 猪龙：去除 margin-bottom，完美接地 */
     #pigron {
-      width: 80px; height: 60px;
-      margin-bottom: 2px; /* 向上微调，离开泥土 */
+      width: 80px; height: 60px; margin-bottom: 0; 
       background-image: url('Category_Mount_animations/Pigron_Mount_(walking).gif');
       -webkit-animation: patrolWalk 24s linear infinite;
     }
 
-    /* 兔子的不规则移动 AI：左跳 -> 停顿 -> 掉头右跳 -> 停顿 */
+    /* 兔子的不规则移动 AI（完美修复纸片掉头Bug） */
     @-webkit-keyframes bunnyHop {
-      0%   { left: 45%; -webkit-transform: scaleX(-1); }
-      15%  { left: 35%; -webkit-transform: scaleX(-1); }
-      20%  { left: 35%; -webkit-transform: scaleX(1); }  /* 迅速掉头 */
-      40%  { left: 48%; -webkit-transform: scaleX(1); }
-      45%  { left: 48%; -webkit-transform: scaleX(-1); } /* 掉头 */
-      60%  { left: 25%; -webkit-transform: scaleX(-1); } /* 跑远一点 */
-      70%  { left: 25%; -webkit-transform: scaleX(1); }
-      90%  { left: 45%; -webkit-transform: scaleX(1); }
-      100% { left: 45%; -webkit-transform: scaleX(-1); }
+      0%      { left: 45%; -webkit-transform: scaleX(-1); }
+      15%     { left: 35%; -webkit-transform: scaleX(-1); }
+      19.99%  { left: 35%; -webkit-transform: scaleX(-1); } /* 保持方向，拒接渐变 */
+      20%     { left: 35%; -webkit-transform: scaleX(1); }  /* 瞬间掉头 */
+      40%     { left: 48%; -webkit-transform: scaleX(1); }
+      44.99%  { left: 48%; -webkit-transform: scaleX(1); }  /* 保持方向 */
+      45%     { left: 48%; -webkit-transform: scaleX(-1); } /* 瞬间掉头 */
+      60%     { left: 25%; -webkit-transform: scaleX(-1); }
+      69.99%  { left: 25%; -webkit-transform: scaleX(-1); } /* 保持方向 */
+      70%     { left: 25%; -webkit-transform: scaleX(1); }  /* 瞬间掉头 */
+      90%     { left: 45%; -webkit-transform: scaleX(1); }
+      99.99%  { left: 45%; -webkit-transform: scaleX(1); }  /* 保持方向 */
+      100%    { left: 45%; -webkit-transform: scaleX(-1); } /* 瞬间掉头完成循环 */
     }
 
-    /* 猪龙巡逻 AI */
+    /* 猪龙巡逻 AI（完美修复纸片掉头Bug） */
     @-webkit-keyframes patrolWalk {
-      0%   { left: -10%; -webkit-transform: scaleX(1); }
-      48%  { left: 110%; -webkit-transform: scaleX(1); } 
-      50%  { left: 110%; -webkit-transform: scaleX(-1); } 
-      98%  { left: -10%; -webkit-transform: scaleX(-1); } 
-      100% { left: -10%; -webkit-transform: scaleX(1); } 
+      0%      { left: -10%; -webkit-transform: scaleX(1); }
+      49.99%  { left: 110%; -webkit-transform: scaleX(1); } 
+      50%     { left: 110%; -webkit-transform: scaleX(-1); } /* 走到屏幕外右侧瞬间掉头 */
+      99.99%  { left: -10%; -webkit-transform: scaleX(-1); } 
+      100%    { left: -10%; -webkit-transform: scaleX(1); }  /* 走回左侧瞬间掉头 */
     }
 
     #start-overlay {
@@ -119,16 +124,15 @@
   <audio id="bg-music" loop></audio>
   <div id="start-overlay">LOADING AUDIO...</div>
 
-  <!-- 10朵云组成的层叠天空 -->
-  <div id="c-bg-1" class="cloud pixelated"></div>
-  <div id="c-bg-2" class="cloud pixelated"></div>
-  <div id="c-bg-3" class="cloud pixelated"></div>
-  <div id="c-mid-1" class="cloud pixelated"></div>
-  <div id="c-mid-2" class="cloud pixelated"></div>
-  <div id="c-mid-3" class="cloud pixelated"></div>
-  <div id="c-mid-4" class="cloud pixelated"></div>
-  <div id="c-fg-1" class="cloud pixelated"></div>
-  <div id="c-fg-2" class="cloud pixelated"></div>
+  <!-- 15朵云交错编织的连绵云海 -->
+  <div id="c1" class="cloud pixelated"></div><div id="c2" class="cloud pixelated"></div>
+  <div id="c3" class="cloud pixelated"></div><div id="c4" class="cloud pixelated"></div>
+  <div id="c5" class="cloud pixelated"></div><div id="c6" class="cloud pixelated"></div>
+  <div id="c7" class="cloud pixelated"></div><div id="c8" class="cloud pixelated"></div>
+  <div id="c9" class="cloud pixelated"></div><div id="c10" class="cloud pixelated"></div>
+  <div id="c11" class="cloud pixelated"></div><div id="c12" class="cloud pixelated"></div>
+  <div id="c13" class="cloud pixelated"></div><div id="c14" class="cloud pixelated"></div>
+  <div id="c15" class="cloud pixelated"></div>
 
   <div id="ground-container" class="pixelated">
     <div id="grass-top"></div>
