@@ -21,154 +21,119 @@
       image-rendering: pixelated;
     }
 
-    /* === 全新分层云系统 === */
+    /* === 重构层叠云海 (密集叠加设计) === */
     .cloud {
       position: absolute;
       background-repeat: no-repeat;
       background-size: contain;
       z-index: 1; 
     }
-    /* 高空卷云：极快、半透明 */
-    #c-high-1 {
-      top: 5%; height: 8vh; width: 18vw;
-      background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png');
-      opacity: 0.6;
-      -webkit-animation: floatCloud 30s linear infinite;
-    }
-    #c-high-2 {
-      top: 12%; height: 6vh; width: 15vw;
-      background-image: url('Category_Cloud_images/Cirrus_cloud_4.png');
-      opacity: 0.7;
-      -webkit-animation: floatCloud 45s linear infinite;
-      -webkit-animation-delay: -20s;
-    }
-    /* 中空普通云：中速、较清晰 */
-    #c-mid-1 {
-      top: 25%; height: 10vh; width: 22vw;
-      background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); 
-      opacity: 0.9;
-      -webkit-animation: floatCloud 75s linear infinite;
-      -webkit-animation-delay: -10s;
-    }
-    #c-mid-2 {
-      top: 35%; height: 9vh; width: 20vw;
-      background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); 
-      opacity: 0.85;
-      -webkit-animation: floatCloud 85s linear infinite;
-      -webkit-animation-delay: -50s;
-    }
-    /* 低空积雨云：巨大、极慢、不透明 */
-    #c-low-1 {
-      top: 45%; height: 14vh; width: 28vw;
-      background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png');
-      opacity: 1;
-      -webkit-animation: floatCloud 140s linear infinite;
-      -webkit-animation-delay: -80s;
-    }
+    
+    /* 1. 后层云 (慢速、透明度低、最高) */
+    #c-bg-1 { top: 8%; height: 12vh; width: 25vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.5; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -10s; }
+    #c-bg-2 { top: 10%; height: 10vh; width: 22vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.6; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -50s; }
+    #c-bg-3 { top: 15%; height: 14vh; width: 28vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.55; -webkit-animation: floatBg 110s linear infinite; -webkit-animation-delay: -90s; }
 
-    @-webkit-keyframes floatCloud {
-      from { -webkit-transform: translate3d(110vw, 0, 0); }
-      to   { -webkit-transform: translate3d(-40vw, 0, 0); }
-    }
+    /* 2. 中层云团 (中速、密集交叉、遮挡) */
+    #c-mid-1 { top: 22%; height: 15vh; width: 30vw; background-image: url('Category_Cloud_images/120px-Cumulonimbus_cloud_1.png'); opacity: 0.85; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -5s; }
+    #c-mid-2 { top: 28%; height: 11vh; width: 24vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_1.png'); opacity: 0.9; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -18s; } /* 紧跟上一朵，形成连云 */
+    #c-mid-3 { top: 35%; height: 9vh; width: 20vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 0.8; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -45s; }
+    #c-mid-4 { top: 32%; height: 13vh; width: 26vw; background-image: url('Category_Cloud_images/120px-Regular_cloud_2.png'); opacity: 0.88; -webkit-animation: floatMid 75s linear infinite; -webkit-animation-delay: -65s; }
 
-    /* === 加厚版厚实地基 === */
+    /* 3. 前层飞云 (快速、实心、低空) */
+    #c-fg-1 { top: 40%; height: 8vh; width: 18vw; background-image: url('Category_Cloud_images/120px-Cirrus_cloud_1.png'); opacity: 1; -webkit-animation: floatFg 45s linear infinite; -webkit-animation-delay: -15s; }
+    #c-fg-2 { top: 45%; height: 10vh; width: 22vw; background-image: url('Category_Cloud_images/Cirrus_cloud_4.png'); opacity: 0.95; -webkit-animation: floatFg 45s linear infinite; -webkit-animation-delay: -35s; }
+
+    @-webkit-keyframes floatBg  { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
+    @-webkit-keyframes floatMid { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
+    @-webkit-keyframes floatFg  { from { -webkit-transform: translate3d(110vw, 0, 0); } to { -webkit-transform: translate3d(-50vw, 0, 0); } }
+
+    /* === 加厚地基 === */
     #ground-container {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; 
-      height: 18vh; /* 抬高地基高度（约三个手指） */
-      background-color: #5D4037; /* 底部纯实心泥土色 */
-      z-index: 3;
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 18vh; background-color: #5D4037; z-index: 3;
     }
-    /* 草皮层：只在地基最顶端铺一层 */
     #grass-top {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 32px;
+      position: absolute; top: 0; left: 0; width: 100%; height: 32px;
       background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjNUQ0MDM3Ii8+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjQiIGZpbGw9IiM0Q0FGNTAiLz48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjNENBRjUwIi8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9IiM0Q0FGNTAiLz48L3N2Zz4=');
-      background-repeat: repeat-x; 
-      background-size: 32px 32px; 
+      background-repeat: repeat-x; background-size: 32px 32px; 
     }
 
     /* === 实体层 === */
     .entity {
-      position: absolute;
-      /* 基础高度：贴着抬高后的地基顶部 */
-      bottom: 18vh; 
-      background-repeat: no-repeat;
-      background-size: contain;
-      z-index: 10;
+      position: absolute; bottom: 18vh; background-repeat: no-repeat; background-size: contain; z-index: 10;
     }
     
-    /* 弹吉他的玩家：修复浮空 */
+    /* 玩家：保持原样 */
     #player {
-      left: 45%; 
-      width: 48px; height: 64px; 
-      /* 使用负边距将人物“向下压”，抵消 GIF 的透明底部，你可以微调这个数值 */
-      margin-bottom: -10px; 
+      left: 55%; width: 48px; height: 64px; margin-bottom: -10px; 
       background-image: url('Category_Player_animations/Guitar_example.gif'); 
     }
 
-    /* 陪伴的兔子 */
+    /* 兔子：修复陷地并加入蹦跶 AI */
     #bunny {
-      left: 38%;
       width: 50px; height: 35px;
-      margin-bottom: -6px; /* 兔子也微调一下接地 */
+      margin-bottom: 2px; /* 向上微调，离开泥土 */
       background-image: url('Category_Mount_animations/Bunny_Mount.gif'); 
-      -webkit-transform: scaleX(-1); 
-      transform: scaleX(-1);
+      -webkit-animation: bunnyHop 14s ease-in-out infinite; /* 绑定水平移动轨迹 */
     }
 
-    /* 来回巡逻的猪龙坐骑（利用你抓取的 walking 动图） */
+    /* 猪龙：修复陷地 */
     #pigron {
       width: 80px; height: 60px;
-      margin-bottom: -15px; 
+      margin-bottom: 2px; /* 向上微调，离开泥土 */
       background-image: url('Category_Mount_animations/Pigron_Mount_(walking).gif');
-      /* 执行 24 秒一圈的来回走动动画 */
       -webkit-animation: patrolWalk 24s linear infinite;
     }
 
-    /* 巡逻 AI：走到右边 -> 瞬间翻转身体 -> 走回左边 -> 瞬间翻转 */
-    @-webkit-keyframes patrolWalk {
-      0%   { left: -10%; -webkit-transform: scaleX(1); }
-      48%  { left: 110%; -webkit-transform: scaleX(1); } /* 走到屏幕右外侧 */
-      50%  { left: 110%; -webkit-transform: scaleX(-1); } /* 瞬间掉头 */
-      98%  { left: -10%; -webkit-transform: scaleX(-1); } /* 走回屏幕左外侧 */
-      100% { left: -10%; -webkit-transform: scaleX(1); } /* 瞬间掉头完成循环 */
+    /* 兔子的不规则移动 AI：左跳 -> 停顿 -> 掉头右跳 -> 停顿 */
+    @-webkit-keyframes bunnyHop {
+      0%   { left: 45%; -webkit-transform: scaleX(-1); }
+      15%  { left: 35%; -webkit-transform: scaleX(-1); }
+      20%  { left: 35%; -webkit-transform: scaleX(1); }  /* 迅速掉头 */
+      40%  { left: 48%; -webkit-transform: scaleX(1); }
+      45%  { left: 48%; -webkit-transform: scaleX(-1); } /* 掉头 */
+      60%  { left: 25%; -webkit-transform: scaleX(-1); } /* 跑远一点 */
+      70%  { left: 25%; -webkit-transform: scaleX(1); }
+      90%  { left: 45%; -webkit-transform: scaleX(1); }
+      100% { left: 45%; -webkit-transform: scaleX(-1); }
     }
 
-    /* === 启动交互层 === */
+    /* 猪龙巡逻 AI */
+    @-webkit-keyframes patrolWalk {
+      0%   { left: -10%; -webkit-transform: scaleX(1); }
+      48%  { left: 110%; -webkit-transform: scaleX(1); } 
+      50%  { left: 110%; -webkit-transform: scaleX(-1); } 
+      98%  { left: -10%; -webkit-transform: scaleX(-1); } 
+      100% { left: -10%; -webkit-transform: scaleX(1); } 
+    }
+
     #start-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.4); z-index: 100;
-      display: -webkit-box; display: flex; 
-      -webkit-box-pack: center; justify-content: center; 
-      -webkit-box-align: center; align-items: center;
-      color: white; font-family: "Courier New", Courier, monospace; font-size: 4vw;
-      letter-spacing: 2px;
+      display: -webkit-box; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center;
+      color: white; font-family: monospace; font-size: 4vw; letter-spacing: 2px;
     }
   </style>
 </head>
 <body>
   <audio id="bg-music" loop></audio>
+  <div id="start-overlay">LOADING AUDIO...</div>
 
-  <div id="start-overlay">
-    LOADING AUDIO...
-  </div>
-
-  <!-- 分层云朵组合 -->
-  <div id="c-high-1" class="cloud pixelated"></div>
-  <div id="c-high-2" class="cloud pixelated"></div>
+  <!-- 10朵云组成的层叠天空 -->
+  <div id="c-bg-1" class="cloud pixelated"></div>
+  <div id="c-bg-2" class="cloud pixelated"></div>
+  <div id="c-bg-3" class="cloud pixelated"></div>
   <div id="c-mid-1" class="cloud pixelated"></div>
   <div id="c-mid-2" class="cloud pixelated"></div>
-  <div id="c-low-1" class="cloud pixelated"></div>
+  <div id="c-mid-3" class="cloud pixelated"></div>
+  <div id="c-mid-4" class="cloud pixelated"></div>
+  <div id="c-fg-1" class="cloud pixelated"></div>
+  <div id="c-fg-2" class="cloud pixelated"></div>
 
-  <!-- 加厚地基 -->
   <div id="ground-container" class="pixelated">
     <div id="grass-top"></div>
   </div>
 
-  <!-- 实体组合 -->
   <div id="player" class="entity pixelated"></div>
   <div id="bunny" class="entity pixelated"></div>
   <div id="pigron" class="entity pixelated"></div>
@@ -177,7 +142,6 @@
     var overlay = document.getElementById('start-overlay');
     var music = document.getElementById('bg-music');
     var isLoaded = false;
-
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'Music-Overworld_Day.m4a', true);
     xhr.responseType = 'blob';
@@ -187,19 +151,12 @@
         music.src = objectUrl;
         isLoaded = true;
         overlay.innerText = "TAP TO START"; 
-      } else {
-        overlay.innerText = "ERROR: " + this.status;
-      }
+      } else { overlay.innerText = "ERROR: " + this.status; }
     };
     xhr.send();
-
     function startExperience(e) {
-      if (!isLoaded) return; 
-      e.preventDefault();
-      music.play();
-      overlay.style.display = 'none';
+      if (!isLoaded) return; e.preventDefault(); music.play(); overlay.style.display = 'none';
     }
-
     overlay.addEventListener('touchstart', startExperience, false);
     overlay.addEventListener('click', startExperience, false);
   </script>
