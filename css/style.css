@@ -1,0 +1,182 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root { --slot: 44px; --gap: 4px; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #0b0f2b;
+  touch-action: none;
+  -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  color: #fff;
+  font-family: "Andy Bold", "Andy", "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: bold;
+}
+
+.px {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Terraria 式黑色描边文字 */
+.txt {
+  text-shadow:
+    -2px 0 #000, 2px 0 #000, 0 -2px #000, 0 2px #000,
+    -2px -2px #000, 2px 2px #000, -2px 2px #000, 2px -2px #000;
+  letter-spacing: 0.5px;
+}
+.small { font-size: 13px; }
+
+/* ================= 世界 ================= */
+#stage { position: fixed; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; cursor: grab; }
+#stage.drag { cursor: grabbing; }
+#stage canvas, #ents { position: absolute; left: 0; top: 0; }
+#ents { width: 100%; height: 100%; pointer-events: none; }
+#over { pointer-events: none; }
+
+img.ent {
+  position: absolute; left: 0; top: 0;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: none;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* ================= 界面 ================= */
+#hud { position: fixed; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; z-index: 10; }
+#hud .panel, #hotbar, #minimap { pointer-events: auto; }
+
+#left-col {
+  position: absolute;
+  left: calc(10px + env(safe-area-inset-left));
+  top: calc(6px + env(safe-area-inset-top));
+}
+#item-name { font-size: 16px; height: 22px; margin-left: 4px; white-space: nowrap; }
+
+#hotbar { display: flex; gap: var(--gap); }
+.slot {
+  position: relative;
+  width: var(--slot); height: var(--slot);
+  background: rgba(54, 70, 160, 0.78);
+  border: 2px solid rgba(14, 18, 58, 0.95);
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 2px rgba(120, 140, 235, 0.35);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform .12s;
+}
+.slot:hover { background: rgba(70, 90, 190, 0.85); }
+.slot.sel {
+  background: rgba(150, 140, 40, 0.8);
+  border-color: rgba(60, 50, 0, 0.95);
+  box-shadow: inset 0 0 0 2px rgba(255, 235, 110, 0.6);
+  transform: scale(1.08);
+}
+.slot.on { box-shadow: inset 0 0 0 2px rgba(120, 255, 140, 0.75); }
+.slot img, .slot canvas { width: 68%; height: 68%; pointer-events: none; }
+.slot img.round { border-radius: 50%; }
+.slot .num { position: absolute; left: 4px; top: 0; font-size: 11px; pointer-events: none; }
+.slot .cnt { position: absolute; right: 3px; bottom: 0; font-size: 12px; pointer-events: none; }
+.slot .glyph { font-size: calc(var(--slot) * 0.5); line-height: 1; pointer-events: none; }
+
+#info {
+  margin-top: 10px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 12px 6px 8px;
+  background: rgba(30, 38, 100, 0.55);
+  border: 2px solid rgba(14, 18, 58, 0.8);
+  border-radius: 8px;
+}
+#watch { width: 64px; height: 64px; }
+#t-big { font-size: 30px; line-height: 1.05; white-space: nowrap; }
+#t-sub { margin-top: 3px; white-space: nowrap; }
+
+#right-col {
+  position: absolute;
+  right: calc(10px + env(safe-area-inset-right));
+  top: calc(6px + env(safe-area-inset-top));
+  width: 260px;
+  display: flex; flex-direction: column; align-items: flex-end;
+}
+#life { height: 18px; }
+#hearts { display: flex; flex-wrap: wrap; justify-content: flex-end; width: 236px; gap: 2px; margin-bottom: 6px; }
+#hearts img { width: 22px; height: 20px; }
+
+#minimap {
+  position: relative;
+  width: 260px;
+  padding: 5px;
+  border-radius: 6px;
+  background: linear-gradient(#e6c76a, #a8812e);
+  box-shadow: 0 0 0 2px #3c2a08, inset 0 0 0 2px #fff0b0;
+  cursor: pointer;
+}
+#mm {
+  display: block; width: 100%;
+  background: url('../Map_Background_Forest.png') center / cover no-repeat;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  border: 2px solid #3c2a08;
+}
+
+#accs { margin-top: 8px; text-align: right; line-height: 1.6; }
+#accs div { white-space: nowrap; }
+#moon-ico { width: 18px; height: 18px; vertical-align: -4px; margin-right: 4px; border-radius: 50%; }
+
+#chat {
+  position: absolute;
+  left: calc(12px + env(safe-area-inset-left));
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  font-size: 17px;
+  max-width: 70vw;
+}
+#chat div { margin-top: 4px; transition: opacity 1.2s; }
+
+/* ================= 启动界面 ================= */
+#start-overlay {
+  position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 100;
+  background: radial-gradient(ellipse at center, rgba(10, 14, 40, 0.55), rgba(0, 0, 0, 0.82));
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: opacity .6s;
+}
+#start-overlay.hide { opacity: 0; pointer-events: none; }
+.start-card { text-align: center; padding: 20px; max-width: 520px; }
+.start-card .cycle { width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 40px rgba(200, 220, 255, .35); }
+.start-card h1 { font-size: 30px; margin: 14px 0 6px; color: #ffe27a; }
+.start-card .tip { margin-top: 18px; font-size: 13px; line-height: 1.7; color: #cfd8ff; }
+#bar { width: 260px; height: 14px; margin: 18px auto 10px; border: 2px solid #000; border-radius: 4px; background: #2a1d0c; overflow: hidden; }
+#bar-fill { width: 0; height: 100%; background: linear-gradient(#ffe06a, #d79a1e); transition: width .2s; }
+#start-msg { font-size: 22px; }
+#mute-btn {
+  margin-top: 12px; padding: 6px 14px;
+  color: #fff; background: rgba(54, 70, 160, 0.8);
+  border: 2px solid #0e123a; border-radius: 6px;
+  font-family: inherit; cursor: pointer;
+}
+
+/* ================= 手机布局 ================= */
+@media (max-width: 760px) {
+  :root { --slot: calc((100vw - 20px - 9 * 3px) / 10); --gap: 3px; }
+  #left-col { left: 10px; right: 10px; }
+  #item-name { font-size: 14px; height: 19px; }
+  #hotbar { width: 100%; }
+  #info { padding: 4px 8px 4px 4px; gap: 6px; margin-top: 8px; }
+  #watch { width: 48px; height: 48px; }
+  #t-big { font-size: 22px; }
+  .small { font-size: 12px; }
+  #right-col { top: auto; bottom: calc(10px + env(safe-area-inset-bottom)); width: 170px; }
+  #life, #hearts { display: none; }
+  #minimap { width: 170px; padding: 3px; }
+  #accs { margin-top: 4px; line-height: 1.45; }
+  #chat { font-size: 14px; max-width: 52vw; }
+}
